@@ -23,6 +23,19 @@ const MOTIVATIONAL_QUOTES = [
     { text: "Reading is to the mind what exercise is to the body.", author: "Joseph Addison" }
 ];
 
+// --- Helper Functions ---
+
+const getStringHash = (str: string): number => {
+    let hash = 0;
+    if (str.length === 0) return hash;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+};
+
 // --- Helper Components ---
 
 const Toast: React.FC<{ message: string; type: 'success' | 'error'; onClose: () => void }> = ({ message, type, onClose }) => {
@@ -46,7 +59,10 @@ const Toast: React.FC<{ message: string; type: 'success' | 'error'; onClose: () 
 const BookModal: React.FC<{ book: Book | null; isOpen: boolean; onClose: () => void; onBorrow: (book: Book) => void; isProcessing: boolean }> = ({ book, isOpen, onClose, onBorrow, isProcessing }) => {
     if (!isOpen || !book) return null;
     const isAvailable = book.status === BookStatus.Available;
-    const rating = (parseInt(book.id.replace(/\D/g, '')) % 10) / 2 + 3; 
+    
+    // Generate deterministic rating based on hash of ID
+    const hash = getStringHash(book.id);
+    const rating = (hash % 20) / 10 + 3; // Generates number between 3.0 and 5.0
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -175,9 +191,10 @@ const MyShelfDrawer: React.FC<{ isOpen: boolean; onClose: () => void; requests: 
 const BookCard: React.FC<{ book: Book; onClick: (book: Book) => void }> = ({ book, onClick }) => {
     const isAvailable = book.status === BookStatus.Available;
     
-    // Generate a consistent "random" color for the placeholder based on the book ID
+    // Generate a consistent "random" color for the placeholder based on the book ID hash
     const colors = ['bg-blue-100', 'bg-green-100', 'bg-purple-100', 'bg-orange-100', 'bg-rose-100', 'bg-teal-100'];
-    const colorIndex = parseInt(book.id.replace(/\D/g, '') || '0') % colors.length;
+    const hash = getStringHash(book.id);
+    const colorIndex = hash % colors.length;
     const bgColor = colors[colorIndex];
 
     return (
@@ -323,7 +340,7 @@ const StudentCatalog: React.FC<StudentCatalogProps> = ({ books, user, myRequests
         requests={myRequests}
       />
 
-      {/* Spotlight Hero - Kept as requested ("Book of the day very nice") */}
+      {/* Spotlight Hero */}
       {!isLoading && spotlightBook && (
           <div className="relative bg-slate-900 text-white overflow-hidden shadow-2xl">
             <div className="absolute inset-0">
