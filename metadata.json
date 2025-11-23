@@ -1,0 +1,7 @@
+{
+  "name": "Istanbul International School Library",
+  "description": "A modern library management system for students and librarians at Istanbul International School. It allows for easy catalog searching, borrowing requests, and book management by leveraging AI to digitize the library's catalog from images.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

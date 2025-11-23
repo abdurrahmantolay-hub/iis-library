@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Istanbul International School Library</title>
+    <!-- Tailwind CSS (CDN is fine for simplicity, but a full install is recommended for large projects) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: 'var(--color-primary)',
+            secondary: 'var(--color-secondary)',
+            accent: 'var(--color-accent)',
+            'gradient-start': 'var(--color-gradient-start)',
+            'gradient-end': 'var(--color-gradient-end)',
+            'content-bg': 'var(--color-content-bg)',
+            'text-primary': 'var(--color-text-primary)',
+            'text-secondary': 'var(--color-text-secondary)',
+            'text-accent': 'var(--color-text-accent)',
+            'text-inverted': 'var(--color-text-inverted)',
+            'border-primary': 'var(--color-border-primary)',
+            'status-available-bg': 'var(--color-status-available-bg)',
+            'status-available-text': 'var(--color-status-available-text)',
+            'status-loaned-bg': 'var(--color-status-loaned-bg)',
+            'status-loaned-text': 'var(--color-status-loaned-text)',
+            'accent-1': 'var(--color-accent-1)',
+            'accent-2': 'var(--color-accent-2)',
+            'accent-3': 'var(--color-accent-3)',
+            'accent-4': 'var(--color-accent-4)',
+          }
+        }
+      }
+    }
+  </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--color-content-bg);
+        color: var(--color-text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      /* Custom scrollbar hiding utility */
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+      .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.84.0",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
