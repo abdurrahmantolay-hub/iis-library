@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { Book } from '../types';
 
@@ -63,7 +62,11 @@ export const parseBookListFromImage = async (imageFile: File): Promise<Omit<Book
         }
     });
 
-    const parsedJson = JSON.parse(result.text);
+    const text = result.text;
+    if (!text) {
+        throw new Error("No text returned from Gemini");
+    }
+    const parsedJson = JSON.parse(text);
     return parsedJson as Omit<Book, 'id' | 'status'>[];
 
   } catch (error) {
