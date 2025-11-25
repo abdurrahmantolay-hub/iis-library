@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 
 interface ImportMetaEnv {
   readonly VITE_SUPABASE_URL: string
@@ -9,16 +10,16 @@ interface ImportMeta {
   readonly env: ImportMetaEnv
 }
 
-// Augment the existing ProcessEnv interface to include our environment variables.
-// This prevents conflicts with global 'process' declarations from @types/node.
-declare namespace NodeJS {
-  interface ProcessEnv {
+// FIX: Explicitly declare the global 'process' variable.
+// This tells TypeScript: "Trust me, there is a variable named process with these properties."
+declare const process: {
+  env: {
     API_KEY: string;
     SUPABASE_URL: string;
     SUPABASE_KEY: string;
     [key: string]: string | undefined;
   }
-}
+};
 
 // Fallback declaration to prevent build errors if @google/genai types are missing
 declare module '@google/genai' {

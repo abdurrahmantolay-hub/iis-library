@@ -66,7 +66,8 @@ export const parseBookListFromImage = async (imageFile: File): Promise<Omit<Book
     if (!text) {
         throw new Error("No text returned from Gemini");
     }
-    const parsedJson = JSON.parse(text);
+    // FIX: Explicitly cast to string to satisfy TypeScript
+    const parsedJson = JSON.parse(text as string);
     return parsedJson as Omit<Book, 'id' | 'status'>[];
 
   } catch (error) {
